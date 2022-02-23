@@ -5,12 +5,14 @@ const moveFrom = "./PDFs";
 const moveTo = "./images";
 const path = require('path');
 const config = {
-  lang: "POR",
+  lang: "eng",
   oem: 1,
-  psm: 3,
+  psm: 1,
+  dpi:1200
 }
+
 init()
-async function init(){
+async function init() {
 
   const directoryPath = path.join(__dirname, 'PDFs');
 
@@ -20,40 +22,42 @@ async function init(){
     }
     for (let index = 0; index < files.length; index++) {
       const element = files[index];
-      await   convert(element)
-      
+      await convert(element)
     }
-
   })
 }
-
-
 async function convert(file) {
-  const image = await pdf('./PDFs/' + file, { scale: 15 })
-  const fileImagName = file.replace('.pdf','.png')
-  console.log('IMAGE == M',file)
+  const image = await pdf('./PDFs/' + file, { scale: 20 })
+  const fileImagName = file.replace('.pdf', '.png')
+  const filetxtname = fileImagName.replace('.png', '.txt')
+  console.log('IMAGE == M', file)
 
-let passou = false;
+  let passou = false;
   for await (const page of image) {
-    if(!passou ){
-      passou = true 
+    if (!passou) {
+      passou = true
       console.log('pAGE', image[page])
       fs.writeFile('./images/' + fileImagName, page, callback);
     }
   }
-  setTimeout(async ()=> {
+  setTimeout(async () => {
     await tesseract
-    .recognize('./images/' + fileImagName, config)
-    .then((text) => {
-      console.log(text)
-    })
-    .catch((error) => {
-      console.log(error.message)
-    })
-  },500)
-}
+      .recognize('./images/' + fileImagName, config)
+      .then((data) => {
 
+        fs.writeFile('./dados/' + filetxtname, data, (err) => {
+          if (err) throw err;
+          console.log('O arquivo foi criado!');
+        });
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+  }, 500)
+}
 var callback = (err) => {
   if (err) throw err;
   console.log('It\'s saved!');
 }
+
+

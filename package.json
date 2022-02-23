@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^3.2.3",
+    "async-parallel-foreach": "^1.0.1",
     "cloudmersive-ocr-api-client": "^1.3.3",
     "cloudmersive-validate-api-client": "^1.4.6",
     "fs": "0.0.1-security",
