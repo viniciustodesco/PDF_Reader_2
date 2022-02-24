@@ -13,9 +13,13 @@
     "async-parallel-foreach": "^1.0.1",
     "cloudmersive-ocr-api-client": "^1.3.3",
     "cloudmersive-validate-api-client": "^1.4.6",
+    "cpf-cnpj-validator": "^1.0.3",
     "fs": "0.0.1-security",
     "fs-extra": "^10.0.0",
+    "ltrim": "^1.0.1",
+    "muhammara": "^2.1.0",
     "node-poppler": "^5.1.2",
+    "node-qpdf": "^1.0.3",
     "node-tesseract-ocr": "^2.2.1",
     "pdf-image": "^2.0.0",
     "pdf-parse": "^1.1.1",
@@ -25,6 +29,7 @@
     "png-crop": "^0.0.2",
     "rimraf": "^3.0.2",
     "sharp": "^0.30.1",
-    "tesseract.js": "^2.1.5"
+    "tesseract.js": "^2.1.5",
+    "uuid": "^8.3.2"
   }
 }

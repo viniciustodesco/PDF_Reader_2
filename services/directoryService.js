@@ -20,10 +20,15 @@ async function writeFile(directoryPath, data) {
     });
 }
 async function copyFile(src, dest) {
-    fs.copyFile(src,dest, (err) => {
-        if (err) throw err;
-        console.log('O arquivo foi movido!');
+    return new Promise((resolve, reject) => {
+        fs.copyFile(src,dest, (err) => {
+            if (err) throw err;
+            console.log('O arquivo foi movido!');
+            resolve(src)
+        });
     });
+
+  
 }
 async function deleteFile(directoryPath) {
     return new Promise((resolve, reject) => {

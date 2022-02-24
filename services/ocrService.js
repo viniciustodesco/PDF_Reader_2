@@ -9,7 +9,7 @@ const cropImageService = require("./cropImage")
 const config = {
     lang: "eng",
     oem: 1,
-    psm: 1,
+    psm: 7,
     dpi: 1200
 }
 var callback = (err) => {
@@ -17,9 +17,10 @@ var callback = (err) => {
     console.log('It\'s saved!');
 }
 
+
 async function convert(file) {
     return new Promise(async (resolve, reject) => {
-        const image = await pdf('./PDFs/' + file, { scale: 20 })
+        const image = await pdf('./PDFs/' + file, { scale: 5 })
         const fileImagName = file.replace('.pdf', '.png')
         const filetxtname = fileImagName.replace('.png', '.txt')
         const fileNamePath = './images/' + fileImagName;
@@ -36,15 +37,13 @@ async function convert(file) {
             await tesseract
                 .recognize('./images/' + fileImagName, config)
                 .then((data) => {
-                    resolve(data)
+                    console.log('tesseract  ====================>', data)
+                    resolve(data.replace('| ', '').replace('|', ''))
                 })
                 .catch((error) => {
                     console.log(error.message)
                 })
         }, 500);
-
-
-
 
     });
 

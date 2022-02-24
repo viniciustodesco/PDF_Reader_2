@@ -1,7 +1,7 @@
 var PNGCrop = require('png-crop');
 const directoryService = require("./directoryService")
 
-var config1 = { width: 11000, height: 250, top: 3350, left: 100 };
+var config1 = { width: 2750, height: 55, top: 830, left: 50 };
 
 async function cropImage(fileName) {
     try {
