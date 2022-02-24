@@ -18,29 +18,36 @@ var callback = (err) => {
 }
 
 async function convert(file) {
-    const image = await pdf('./PDFs/' + file, { scale: 20 })
-    const fileImagName = file.replace('.pdf', '.png')
-    const filetxtname = fileImagName.replace('.png', '.txt')
-    const fileNamePath = './images/' + fileImagName;
-    let passou = false;
+    return new Promise(async (resolve, reject) => {
+        const image = await pdf('./PDFs/' + file, { scale: 20 })
+        const fileImagName = file.replace('.pdf', '.png')
+        const filetxtname = fileImagName.replace('.png', '.txt')
+        const fileNamePath = './images/' + fileImagName;
+        let passou = false;
 
-    for await (const page of image) {
-        if (!passou) {
-            passou = true
-            fs.writeFile(fileNamePath, page, callback);
+        for await (const page of image) {
+            if (!passou) {
+                passou = true
+                fs.writeFile(fileNamePath, page, callback);
+            }
         }
-    }
-    await cropImageService.cropImage(fileNamePath)
-    setTimeout( async () => {
-        await tesseract
-            .recognize('./images/' + fileImagName, config)
-            .then((data) => {
-                directoryService.writeFile('./dados/' + filetxtname, data)
-            })
-            .catch((error) => {
-                console.log(error.message)
-            })
-    }, 500);
+        await cropImageService.cropImage(fileNamePath)
+        setTimeout(async () => {
+            await tesseract
+                .recognize('./images/' + fileImagName, config)
+                .then((data) => {
+                    resolve(data)
+                })
+                .catch((error) => {
+                    console.log(error.message)
+                })
+        }, 500);
+
+
+
+
+    });
+
 
 }
 

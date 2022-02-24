@@ -19,7 +19,12 @@ async function writeFile(directoryPath, data) {
         console.log('O arquivo foi criado!');
     });
 }
-
+async function copyFile(src, dest) {
+    fs.copyFile(src,dest, (err) => {
+        if (err) throw err;
+        console.log('O arquivo foi movido!');
+    });
+}
 async function deleteFile(directoryPath) {
     return new Promise((resolve, reject) => {
         fs.unlink(directoryPath, (err) => {
@@ -41,4 +46,4 @@ async function renameFile(originPath, destPath) {
 }
 
 
-module.exports = { listAllFilesInFolder, writeFile, deleteFile, renameFile }
+module.exports = { listAllFilesInFolder, writeFile, deleteFile, renameFile, copyFile }
