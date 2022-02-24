@@ -22,7 +22,9 @@
     "pdf-poppler": "^0.2.1",
     "pdf-to-img": "^1.2.0",
     "pdf2pic": "^2.1.4",
+    "png-crop": "^0.0.2",
     "rimraf": "^3.0.2",
+    "sharp": "^0.30.1",
     "tesseract.js": "^2.1.5"
   }
 }
